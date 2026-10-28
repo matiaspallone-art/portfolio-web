@@ -29,6 +29,14 @@
     return t;
   }
 
+  // Freno básico: sin menú de "guardar imagen" ni arrastre sobre las fotos del sitio.
+  document.addEventListener("contextmenu", function (e) {
+    if (e.target && e.target.tagName === "IMG") e.preventDefault();
+  });
+  document.addEventListener("dragstart", function (e) {
+    if (e.target && e.target.tagName === "IMG") e.preventDefault();
+  });
+
   var s = C.sitio || {};
   document.getElementById("nombre").innerHTML = "";
   var partes = (s.nombre || "").split(" ");

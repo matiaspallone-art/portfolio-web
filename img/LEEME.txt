@@ -1,3 +1,8 @@
 Poné acá tus fotos e imágenes (jpg, png o webp).
 Después escribí el nombre en content.js, por ejemplo:  src: "img/mi-foto.jpg"
-Consejo: usá fotos de hasta 2000 px de ancho y menos de 500 KB cada una para que el sitio cargue rápido.
+
+CUIDADO DE TUS IMÁGENES (leer antes de subir):
+- Nunca subas las fotos originales en alta resolución. Exportalas en tamaño web: hasta 2000 px de ancho y menos de 500 KB.
+- Agregales una marca de agua discreta (tu nombre o iniciales) desde Lightroom, en la ventana de Exportar, sección "Watermarking".
+- Quitá los datos de ubicación al exportar (Lightroom: Metadata > "Copyright only" o "Copyright & Contact Info Only").
+- Cualquier cosa que se ve en una web se puede capturar. La marca de agua y el tamaño reducido son tu mejor defensa.

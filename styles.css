@@ -180,6 +180,11 @@ h1, h2, h3, p { margin: 0; }
 .contact .social { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 32px; font-size: 12px; letter-spacing: 0.26em; text-transform: uppercase; color: var(--text-soft); margin-bottom: 72px; }
 .contact .copy { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
 
+.contact .legal { max-width: 640px; margin: 20px auto 0; line-height: 1.7; letter-spacing: 0.1em; }
+
+/* Dificulta arrastrar o copiar las imágenes (es un freno básico, no una protección total) */
+img { -webkit-user-drag: none; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; }
+
 [hidden] { display: none !important; }
 
 /* TABLET Y CELULAR */
