@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Matías Pallone — Fotógrafo, director creativo y diseñador web</title>
+<meta name="description" content="Portfolio de Matías Pallone: fotografía de moda, dirección creativa, branding y diseño web. Buenos Aires.">
+<meta property="og:title" content="Matías Pallone">
+<meta property="og:description" content="Fotógrafo de moda, director creativo y diseñador web.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400&amp;family=Cormorant+Garamond:wght@300&amp;display=swap">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="nav">
+  <a class="brand" href="#inicio">M. Pallone</a>
+  <nav aria-label="Principal">
+    <ul>
+      <li><a href="#fotografia">Fotografía</a></li>
+      <li><a href="#branding">Branding</a></li>
+      <li><a href="#web">Web</a></li>
+      <li><a href="#arte">Arte</a></li>
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <section class="hero" id="inicio">
+    <div class="hero-note">[ Imagen de portada a pantalla completa — tu mejor foto editorial ]</div>
+    <div class="hero-content">
+      <h1 id="nombre"></h1>
+      <p class="sub" id="subtitulo"></p>
+    </div>
+  </section>
+
+  <section class="intro"><p id="frase"></p></section>
+
+  <section class="section" id="fotografia" style="padding-top:40px">
+    <div class="section-head">
+      <h2 class="section-title">Fotografía</h2>
+      <span class="eyebrow">Portfolio en construcción</span>
+    </div>
+    <div class="photos" id="fotos"></div>
+    <div class="photos-foot">
+      <a class="link-line" id="fotos-link" href="#" target="_blank" rel="noopener" hidden>Ver portfolio completo</a>
+      <span class="domain" id="fotos-dominio" hidden></span>
+    </div>
+  </section>
+
+  <section class="section" id="branding">
+    <div class="section-head">
+      <h2 class="section-title">Branding</h2>
+      <span class="eyebrow">Estudio de caso · en preparación</span>
+    </div>
+    <div class="case">
+      <div class="case-text">
+        <p class="case-lead">[ Nombre de la marca ] — de la idea al resultado, con dirección creativa propia.</p>
+        <ol class="steps">
+          <li><span>01</span><span>La marca y su necesidad</span></li>
+          <li><span>02</span><span>Moodboard y brainstorming</span></li>
+          <li><span>03</span><span>Escenografía</span></li>
+          <li><span>04</span><span>Resultado final</span></li>
+        </ol>
+      </div>
+      <div class="case-images">
+        <div class="tile">[ Moodboard ]</div>
+        <div class="tile">[ Foto final de campaña ]</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section web" id="web">
+    <div class="section-head">
+      <h2 class="section-title">Diseño web</h2>
+      <span class="eyebrow">UI / UX · Sistemas visuales</span>
+    </div>
+    <div id="proyectos"></div>
+  </section>
+
+  <section class="section" id="arte">
+    <div class="section-head" style="margin-bottom:24px">
+      <h2 class="section-title" id="arte-nombre"></h2>
+      <span class="eyebrow" id="arte-etiqueta"></span>
+    </div>
+    <p class="art-lead" id="arte-desc"></p>
+    <div class="art-grid" id="obras"></div>
+  </section>
+
+  <section class="section services" id="servicios">
+    <h2 class="section-title">Servicios</h2>
+    <div class="services-grid">
+      <div class="service">Fotografía de moda y editorial</div>
+      <div class="service">Branding y sistemas visuales</div>
+      <div class="service">Videografía</div>
+      <div class="service">Diseño web · UI / UX</div>
+      <div class="service">Dirección creativa</div>
+      <div class="service">Asesoría en finanzas y gestión comercial<small>Con 5 años de experiencia dirigiendo una cafetería</small></div>
+    </div>
+  </section>
+
+  <section class="section about" id="sobre-mi">
+    <div class="tile">[ Retrato de Matías ]</div>
+    <div class="about-text">
+      <h2 class="section-title">Sobre mí</h2>
+      <p class="lead">Fotógrafo hace 8 años, Licenciado en Comercialización, con estudio propio en Buenos Aires.</p>
+      <p class="body">Combino dirección creativa, producción visual, diseño web y gestión comercial. Trabajo con inteligencia artificial, Python y SQL para sumar a mi trabajo creativo y de negocio. Durante 5 años dirigí una cafetería: finanzas, equipo y gestión legal. Esa experiencia respalda mi asesoría a emprendedores.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="contact" id="contacto">
+  <p class="eyebrow">Contacto</p>
+  <p class="big">Trabajemos juntos</p>
+  <p class="email" id="email" hidden></p>
+  <div class="social" id="social"></div>
+  <p class="copy">© <span id="anio"></span> Matías Pallone · Buenos Aires</p>
+</footer>
+
+<script src="content.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
