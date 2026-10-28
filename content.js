@@ -30,12 +30,12 @@ window.CONTENT = {
   // Cuando tengas las fotos, ponelas en la carpeta img/ y escribí: src: "img/mi-foto.jpg"
   // "pos" (opcional) decide qué parte de la foto queda visible cuando se recorta: "50% 20%" = centro, un poco arriba.
   fotos: [
-    { src: "img/editorial-01.jpg", pos: "50% 30%", titulo: { es: "Editorial de moda — serie 01", en: "Fashion editorial — series 01" } },
-    { src: "img/retrato.jpg", pos: "50% 25%", titulo: { es: "Retrato", en: "Portrait" } },
-    { src: "img/accesorios.jpg", pos: "50% 50%", titulo: { es: "Accesorios", en: "Accessories" } },
-    { src: "img/editorial-02.jpg", pos: "50% 30%", titulo: { es: "Editorial de moda — serie 02", en: "Fashion editorial — series 02" } },
-    { src: "img/producto.jpg", pos: "50% 40%", titulo: { es: "Producto", en: "Product" } },
-    { src: "img/editorial-03.jpg", pos: "50% 20%", titulo: { es: "Editorial de moda — serie 03", en: "Fashion editorial — series 03" } }
+    { src: "img/editorial-01.webp", pos: "50% 30%", titulo: { es: "Editorial de moda — serie 01", en: "Fashion editorial — series 01" } },
+    { src: "img/retrato.webp", pos: "50% 25%", titulo: { es: "Retrato", en: "Portrait" } },
+    { src: "img/accesorios.webp", pos: "50% 50%", titulo: { es: "Accesorios", en: "Accessories" } },
+    { src: "img/editorial-02.webp", pos: "50% 30%", titulo: { es: "Editorial de moda — serie 02", en: "Fashion editorial — series 02" } },
+    { src: "img/producto.webp", pos: "50% 40%", titulo: { es: "Producto", en: "Product" } },
+    { src: "img/editorial-03.webp", pos: "50% 20%", titulo: { es: "Editorial de moda — serie 03", en: "Fashion editorial — series 03" } }
   ],
 
   // Proyectos web. Para sumar uno nuevo: copiá un bloque, pegalo y cambiá los textos.
@@ -74,7 +74,7 @@ window.CONTENT = {
       },
       url: "",
       estado: "desarrollo",
-      imagen: "img/andean-condor.jpg",
+      imagen: "img/andean-condor-hq.jpg",
       // fondo y ajuste del recuadro: "contain" muestra la imagen completa sin recortar
       fondo: "#0b1220",
       ajuste: "contain",
@@ -93,7 +93,15 @@ window.CONTENT = {
       es: "Curaduría de arte digital creado con inteligencia artificial.",
       en: "Digital art curation made with artificial intelligence."
     },
-    url: "",
+    url: "https://ll-one-studio.vercel.app",
+    // Portada animada del sitio (video en bucle, sin sonido). "imagen" se usa mientras carga.
+    video: "img/llone-cover.mp4",
+    imagen: "img/llone-poster.jpg",
+    descripcionVisual: {
+      es: "Portada animada de LL-one Studio: cromo líquido en movimiento.",
+      en: "Animated cover of LL-one Studio: moving liquid chrome."
+    },
+    // Obras: agregá { src: "img/obra.jpg", titulo: {es:"…", en:"…"} }. Las que no tienen src no se muestran.
     obras: [
       { src: "", titulo: { es: "Obra 01", en: "Artwork 01" } },
       { src: "", titulo: { es: "Obra 02", en: "Artwork 02" } },

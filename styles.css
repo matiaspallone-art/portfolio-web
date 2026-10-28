@@ -168,6 +168,10 @@ h1, h2, h3, p { margin: 0; }
 
 /* ARTE */
 .art-lead { max-width: 560px; margin-bottom: 56px; font-family: var(--font-serif); font-size: 26px; line-height: 1.4; }
+.art-cover { margin-bottom: 28px; max-width: 1200px; }
+.art-cover .tile { min-height: 0; aspect-ratio: 3 / 2; width: 100%; background: #0a0a0a; padding: 0; }
+.art-cover .tile video { object-fit: cover; }
+.art-link { margin-bottom: 56px; }
 .art-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
 .art-grid .tile { min-height: 520px; }
 

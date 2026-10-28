@@ -156,9 +156,29 @@
     document.getElementById("arte-nombre").textContent = arte.nombre || "";
     document.getElementById("arte-etiqueta").textContent = tr(arte.etiqueta);
     document.getElementById("arte-desc").textContent = tr(arte.descripcion);
+    // Portada animada de LL-one (video en bucle) + link al sitio
+    var portada = document.getElementById("arte-portada");
+    clear(portada);
+    if (arte.video || arte.imagen) {
+      portada.appendChild(tile({
+        src: arte.imagen, video: arte.video, descripcionVisual: arte.descripcionVisual,
+        titulo: arte.nombre
+      }));
+      portada.hidden = false;
+    } else { portada.hidden = true; }
+    var aurl = safeUrl(arte.url);
+    var alink = document.getElementById("arte-link");
+    var awrap = document.getElementById("arte-link-wrap");
+    if (aurl) {
+      alink.textContent = ui("ver_sitio") + " · " + aurl.replace(/^https?:\/\//, "").replace(/\/$/, "");
+      alink.href = aurl;
+      awrap.hidden = false;
+    } else { awrap.hidden = true; }
+    // Obras: solo se muestran las que tienen imagen (sin recuadros vacíos)
     var obras = document.getElementById("obras");
     clear(obras);
-    (arte.obras || []).forEach(function (o) { obras.appendChild(tile(o)); });
+    (arte.obras || []).forEach(function (o) { if (safeAsset(o.src)) obras.appendChild(tile(o)); });
+    obras.hidden = !obras.firstChild;
 
     // Contacto
     var email = document.getElementById("email");
