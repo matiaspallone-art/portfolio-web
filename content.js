@@ -54,11 +54,11 @@ window.CONTENT = {
       url: "https://readcycle.com.ar",
       estado: "online",
       // Si hay "video", el recuadro muestra el sitio en movimiento (sin sonido, en bucle). "imagen" se usa como portada mientras carga.
-      imagen: "img/readcycle-poster.jpg",
-      video: "img/readcycle-demo.mp4",
+      imagen: "img/readcycle-poster-hq.jpg",
+      video: "img/readcycle-demo-hq.mp4",
       descripcionVisual: {
-        es: "Recorrido animado de Readcycle: portada, marketplace y ficha de un libro.",
-        en: "Animated walkthrough of Readcycle: home, marketplace and a book listing."
+        es: "Recorrido animado de Readcycle: portada, sección de juegos, Armá palabras y Mini crucigrama.",
+        en: "Animated walkthrough of Readcycle: home, games section, word builder and mini crossword."
       }
     },
     {
