@@ -28,13 +28,41 @@
     return /^(https?:\/\/|mailto:)/i.test(url || "") ? url : "";
   }
 
+  // Solo rutas internas del sitio (img/...) para fotos y videos; evita cargar archivos de otros sitios.
+  function safeAsset(path) {
+    return /^img\/[A-Za-z0-9._\-\/]+$/.test(path || "") && path.indexOf("..") === -1 ? path : "";
+  }
+
   function tile(item, fallbackLabel) {
     var t = el("div", "tile");
-    if (item.src) {
+    var label = tr(item.titulo) || fallbackLabel || "";
+    var video = safeAsset(item.video);
+    var src = safeAsset(item.src);
+    if (item.fondo && /^#[0-9a-fA-F]{3,8}$/.test(item.fondo)) t.style.background = item.fondo;
+    if (video) {
+      // Sitio en movimiento: sin sonido, en bucle, y se pausa si la persona prefiere menos animación.
+      var v = el("video");
+      v.muted = true; v.defaultMuted = true;
+      v.loop = true; v.autoplay = true; v.playsInline = true;
+      v.setAttribute("muted", ""); v.setAttribute("playsinline", ""); v.setAttribute("loop", "");
+      v.preload = "metadata";
+      var poster = safeAsset(item.poster || src);
+      if (poster) v.poster = poster;
+      v.src = video;
+      v.setAttribute("aria-label", tr(item.descripcionVisual) || label);
+      v.disablePictureInPicture = true;
+      v.setAttribute("controlslist", "nodownload noremoteplayback");
+      if (item.ajuste === "contain") v.style.objectFit = "contain";
+      t.appendChild(v);
+      var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (reduce) { v.autoplay = false; v.removeAttribute("autoplay"); }
+    } else if (src) {
       var img = el("img");
-      img.src = item.src;
-      img.alt = tr(item.titulo) || fallbackLabel || "";
+      img.src = src;
+      img.alt = tr(item.descripcionVisual) || label;
       img.loading = "lazy";
+      if (item.pos && /^[0-9%\s.]+$/.test(item.pos)) img.style.objectPosition = item.pos;
+      if (item.ajuste === "contain") img.style.objectFit = "contain";
       t.appendChild(img);
     } else {
       t.textContent = "[ " + (tr(item.titulo) || fallbackLabel || "") + " ]";
@@ -46,10 +74,10 @@
 
   // Freno básico: sin menú de "guardar imagen" ni arrastre sobre las fotos del sitio.
   document.addEventListener("contextmenu", function (e) {
-    if (e.target && e.target.tagName === "IMG") e.preventDefault();
+    if (e.target && (e.target.tagName === "IMG" || e.target.tagName === "VIDEO")) e.preventDefault();
   });
   document.addEventListener("dragstart", function (e) {
-    if (e.target && e.target.tagName === "IMG") e.preventDefault();
+    if (e.target && (e.target.tagName === "IMG" || e.target.tagName === "VIDEO")) e.preventDefault();
   });
 
   var s = C.sitio || {};
@@ -98,7 +126,11 @@
     clear(cont);
     (C.proyectos || []).forEach(function (p) {
       var wrap = el("article", "project");
-      wrap.appendChild(tile({ src: p.imagen, titulo: ui("captura_de") + " " + p.nombre }));
+      wrap.appendChild(tile({
+        src: p.imagen, video: p.video, fondo: p.fondo, ajuste: p.ajuste,
+        descripcionVisual: p.descripcionVisual,
+        titulo: ui("captura_de") + " " + p.nombre
+      }));
       var txt = el("div", "project-text");
       var estado = p.estado === "online" ? ui("proyecto_online") : ui("proyecto_desarrollo");
       txt.appendChild(el("p", "eyebrow", p.numero + " — " + estado));

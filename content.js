@@ -28,13 +28,14 @@ window.CONTENT = {
 
   // Fotos de la sección Fotografía. Con "src" vacío se muestra un recuadro gris.
   // Cuando tengas las fotos, ponelas en la carpeta img/ y escribí: src: "img/mi-foto.jpg"
+  // "pos" (opcional) decide qué parte de la foto queda visible cuando se recorta: "50% 20%" = centro, un poco arriba.
   fotos: [
-    { src: "", titulo: { es: "Editorial moda — serie 01", en: "Fashion editorial — series 01" } },
-    { src: "", titulo: { es: "Retrato", en: "Portrait" } },
-    { src: "", titulo: { es: "Producto / accesorios", en: "Product / accessories" } },
-    { src: "", titulo: { es: "Serie 02", en: "Series 02" } },
-    { src: "", titulo: { es: "Serie 03", en: "Series 03" } },
-    { src: "", titulo: { es: "Serie 04", en: "Series 04" } }
+    { src: "img/editorial-01.jpg", pos: "50% 30%", titulo: { es: "Editorial de moda — serie 01", en: "Fashion editorial — series 01" } },
+    { src: "img/retrato.jpg", pos: "50% 25%", titulo: { es: "Retrato", en: "Portrait" } },
+    { src: "img/accesorios.jpg", pos: "50% 50%", titulo: { es: "Accesorios", en: "Accessories" } },
+    { src: "img/editorial-02.jpg", pos: "50% 30%", titulo: { es: "Editorial de moda — serie 02", en: "Fashion editorial — series 02" } },
+    { src: "img/producto.jpg", pos: "50% 40%", titulo: { es: "Producto", en: "Product" } },
+    { src: "img/editorial-03.jpg", pos: "50% 20%", titulo: { es: "Editorial de moda — serie 03", en: "Fashion editorial — series 03" } }
   ],
 
   // Proyectos web. Para sumar uno nuevo: copiá un bloque, pegalo y cambiá los textos.
@@ -52,7 +53,13 @@ window.CONTENT = {
       },
       url: "https://readcycle.com.ar",
       estado: "online",
-      imagen: ""
+      // Si hay "video", el recuadro muestra el sitio en movimiento (sin sonido, en bucle). "imagen" se usa como portada mientras carga.
+      imagen: "img/readcycle-poster.jpg",
+      video: "img/readcycle-demo.mp4",
+      descripcionVisual: {
+        es: "Recorrido animado de Readcycle: portada, marketplace y ficha de un libro.",
+        en: "Animated walkthrough of Readcycle: home, marketplace and a book listing."
+      }
     },
     {
       numero: "02",
@@ -67,7 +74,14 @@ window.CONTENT = {
       },
       url: "",
       estado: "desarrollo",
-      imagen: ""
+      imagen: "img/andean-condor.jpg",
+      // fondo y ajuste del recuadro: "contain" muestra la imagen completa sin recortar
+      fondo: "#0b1220",
+      ajuste: "contain",
+      descripcionVisual: {
+        es: "Andean Condor: portada, resumen del portfolio y ficha de un activo.",
+        en: "Andean Condor: home, portfolio overview and an asset page."
+      }
     }
   ],
 
