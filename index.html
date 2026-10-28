@@ -6,7 +6,7 @@
 <title>Matías Pallone — Fotógrafo, director creativo y diseñador web</title>
 <meta name="description" content="Portfolio de Matías Pallone: fotografía de moda, dirección creativa, branding y diseño web. Buenos Aires.">
 <meta property="og:title" content="Matías Pallone">
-<meta property="og:description" content="Fotógrafo de moda, director creativo y diseñador web.">
+<meta property="og:description" content="Fotógrafo de moda, director creativo y diseñador web. / Fashion photographer, creative director and web designer.">
 <meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,65 +19,72 @@
   <a class="brand" href="#inicio">M. Pallone</a>
   <nav aria-label="Principal">
     <ul>
-      <li><a href="#fotografia">Fotografía</a></li>
-      <li><a href="#branding">Branding</a></li>
-      <li><a href="#web">Web</a></li>
-      <li><a href="#arte">Arte</a></li>
-      <li><a href="#servicios">Servicios</a></li>
-      <li><a href="#contacto">Contacto</a></li>
+      <li><a href="#fotografia" data-i18n="nav_fotografia">Fotografía</a></li>
+      <li><a href="#branding" data-i18n="nav_branding">Branding</a></li>
+      <li><a href="#web" data-i18n="nav_web">Web</a></li>
+      <li><a href="#arte" data-i18n="nav_arte">Arte</a></li>
+      <li><a href="#servicios" data-i18n="nav_servicios">Servicios</a></li>
+      <li><a href="#contacto" data-i18n="nav_contacto">Contacto</a></li>
+      <li>
+        <div class="lang" role="group" aria-label="Idioma / Language">
+          <button type="button" data-lang="es" aria-pressed="true" lang="es" aria-label="Español">ES</button>
+          <span aria-hidden="true">/</span>
+          <button type="button" data-lang="en" aria-pressed="false" lang="en" aria-label="English">EN</button>
+        </div>
+      </li>
     </ul>
   </nav>
 </header>
 
 <main>
   <section class="hero" id="inicio">
-    <div class="hero-note">[ Imagen de portada a pantalla completa — tu mejor foto editorial ]</div>
+    <div class="hero-note" data-i18n="hero_note"></div>
     <div class="hero-content">
       <h1 id="nombre"></h1>
-      <p class="sub" id="subtitulo"></p>
+      <p class="sub" data-i18n="subtitulo"></p>
     </div>
   </section>
 
-  <section class="intro"><p id="frase"></p></section>
+  <section class="intro"><p data-i18n="frase"></p></section>
 
   <section class="section" id="fotografia" style="padding-top:40px">
     <div class="section-head">
-      <h2 class="section-title">Fotografía</h2>
-      <span class="eyebrow">Portfolio en construcción</span>
+      <h2 class="section-title" data-i18n="fotografia_title"></h2>
+      <span class="eyebrow" data-i18n="fotografia_status"></span>
     </div>
     <div class="photos" id="fotos"></div>
     <div class="photos-foot">
-      <a class="link-line" id="fotos-link" href="#" target="_blank" rel="noopener" hidden>Ver portfolio completo</a>
+      <a class="link-line" id="fotos-link" href="#" target="_blank" rel="noopener" data-i18n="fotos_link" hidden></a>
       <span class="domain" id="fotos-dominio" hidden></span>
     </div>
   </section>
 
   <section class="section" id="branding">
     <div class="section-head">
-      <h2 class="section-title">Branding</h2>
-      <span class="eyebrow">Estudio de caso · en preparación</span>
+      <h2 class="section-title" data-i18n="branding_title"></h2>
+      <span class="eyebrow" data-i18n="branding_status"></span>
     </div>
     <div class="case">
       <div class="case-text">
-        <p class="case-lead">[ Nombre de la marca ] — de la idea al resultado, con dirección creativa propia.</p>
+        <p class="case-lead" data-i18n="case_lead"></p>
         <ol class="steps">
-          <li><span>01</span><span>La marca y su necesidad</span></li>
-          <li><span>02</span><span>Moodboard y brainstorming</span></li>
-          <li><span>03</span><span>Escenografía</span></li>
-          <li><span>04</span><span>Resultado final</span></li>
+          <li><span>01</span><span data-i18n="step1"></span></li>
+          <li><span>02</span><span data-i18n="step2"></span></li>
+          <li><span>03</span><span data-i18n="step3"></span></li>
+          <li><span>04</span><span data-i18n="step4"></span></li>
         </ol>
       </div>
       <div class="case-images">
-        <div class="tile">[ Moodboard ]</div>
-        <div class="tile">[ Foto final de campaña ]</div>
+        <div class="tile" data-i18n="tile_moodboard"></div>
+        <div class="tile" data-i18n="tile_final"></div>
       </div>
     </div>
   </section>
 
   <section class="section web" id="web">
     <div class="section-head">
-      <h2 class="section-title">Diseño web</h2>
-      <span class="eyebrow">UI / UX · Sistemas visuales</span>
+      <h2 class="section-title" data-i18n="web_title"></h2>
+      <span class="eyebrow" data-i18n="web_sub"></span>
     </div>
     <div id="proyectos"></div>
   </section>
@@ -92,34 +99,34 @@
   </section>
 
   <section class="section services" id="servicios">
-    <h2 class="section-title">Servicios</h2>
+    <h2 class="section-title" data-i18n="servicios_title"></h2>
     <div class="services-grid">
-      <div class="service">Fotografía de moda y editorial</div>
-      <div class="service">Branding y sistemas visuales</div>
-      <div class="service">Videografía</div>
-      <div class="service">Diseño web · UI / UX</div>
-      <div class="service">Dirección creativa</div>
-      <div class="service">Asesoría en finanzas y gestión comercial<small>Con 5 años de experiencia dirigiendo una cafetería</small></div>
+      <div class="service" data-i18n="s1"></div>
+      <div class="service" data-i18n="s2"></div>
+      <div class="service" data-i18n="s3"></div>
+      <div class="service" data-i18n="s4"></div>
+      <div class="service" data-i18n="s5"></div>
+      <div class="service"><span data-i18n="s6"></span><small data-i18n="s6_small"></small></div>
     </div>
   </section>
 
   <section class="section about" id="sobre-mi">
-    <div class="tile">[ Retrato de Matías ]</div>
+    <div class="tile" data-i18n="tile_retrato"></div>
     <div class="about-text">
-      <h2 class="section-title">Sobre mí</h2>
-      <p class="lead">Fotógrafo hace 8 años, Licenciado en Comercialización, con estudio propio en Buenos Aires.</p>
-      <p class="body">Combino dirección creativa, producción visual, diseño web y gestión comercial. Trabajo con inteligencia artificial, Python y SQL para sumar a mi trabajo creativo y de negocio. Durante 5 años dirigí una cafetería: finanzas, equipo y gestión legal. Esa experiencia respalda mi asesoría a emprendedores.</p>
+      <h2 class="section-title" data-i18n="about_title"></h2>
+      <p class="lead" data-i18n="about_lead"></p>
+      <p class="body" data-i18n="about_body"></p>
     </div>
   </section>
 </main>
 
 <footer class="contact" id="contacto">
-  <p class="eyebrow">Contacto</p>
-  <p class="big">Trabajemos juntos</p>
+  <p class="eyebrow" data-i18n="contact_eyebrow"></p>
+  <p class="big" data-i18n="contact_big"></p>
   <p class="email" id="email" hidden></p>
   <div class="social" id="social"></div>
   <p class="copy">© <span id="anio"></span> Matías Pallone · Buenos Aires</p>
-  <p class="copy legal">Todas las imágenes, textos y diseños de este sitio son obra de Matías Pallone. Todos los derechos reservados. Prohibida su reproducción, copia o uso sin autorización escrita.</p>
+  <p class="copy legal" data-i18n="legal"></p>
 </footer>
 
 <script src="content.js"></script>

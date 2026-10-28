@@ -1,7 +1,10 @@
-/* Arma las secciones del sitio a partir de content.js. No hace falta tocar este archivo. */
+/* Arma las secciones del sitio a partir de content.js y maneja el cambio de idioma (ES / EN).
+   No hace falta tocar este archivo. */
 (function () {
   var C = window.CONTENT;
   if (!C) return;
+  var LANGS = ["es", "en"];
+  var lang = "es";
 
   function el(tag, className, text) {
     var node = document.createElement(tag);
@@ -10,24 +13,36 @@
     return node;
   }
 
+  // Devuelve el texto en el idioma actual. Acepta un texto simple o { es: "...", en: "..." }.
+  function tr(value) {
+    if (value && typeof value === "object") return value[lang] || value.es || "";
+    return value || "";
+  }
+  function ui(key) {
+    var d = (C.ui && C.ui[lang]) || {};
+    return d[key] || (C.ui && C.ui.es && C.ui.es[key]) || "";
+  }
+
   // Solo se aceptan links web normales (https://, http://, mailto:) para evitar enlaces raros.
   function safeUrl(url) {
     return /^(https?:\/\/|mailto:)/i.test(url || "") ? url : "";
   }
 
-  function tile(item) {
+  function tile(item, fallbackLabel) {
     var t = el("div", "tile");
     if (item.src) {
       var img = el("img");
       img.src = item.src;
-      img.alt = item.titulo || "";
+      img.alt = tr(item.titulo) || fallbackLabel || "";
       img.loading = "lazy";
       t.appendChild(img);
     } else {
-      t.textContent = "[ " + (item.titulo || "Imagen") + " ]";
+      t.textContent = "[ " + (tr(item.titulo) || fallbackLabel || "") + " ]";
     }
     return t;
   }
+
+  function clear(node) { while (node.firstChild) node.removeChild(node.firstChild); }
 
   // Freno básico: sin menú de "guardar imagen" ni arrastre sobre las fotos del sitio.
   document.addEventListener("contextmenu", function (e) {
@@ -38,81 +53,128 @@
   });
 
   var s = C.sitio || {};
-  document.getElementById("nombre").innerHTML = "";
-  var partes = (s.nombre || "").split(" ");
-  var nombre = document.getElementById("nombre");
-  partes.forEach(function (p, i) {
-    if (i > 0) nombre.appendChild(document.createElement("br"));
-    nombre.appendChild(document.createTextNode(p));
-  });
-  document.getElementById("subtitulo").textContent = (s.subtitulo || "").replace(/\s{2,}/g, "  ");
-  document.getElementById("frase").textContent = s.frase || "";
-  document.getElementById("anio").textContent = new Date().getFullYear();
 
-  // Fotografía
-  var fotos = document.getElementById("fotos");
-  (C.fotos || []).forEach(function (f) { fotos.appendChild(tile(f)); });
-  var fl = safeUrl(s.portfolioFotosUrl);
-  if (fl) {
-    var a = document.getElementById("fotos-link");
-    a.href = fl;
-    a.hidden = false;
-  }
-  var dom = document.getElementById("fotos-dominio");
-  if (s.portfolioFotosDominio) {
-    dom.textContent = s.portfolioFotosDominio;
-    dom.hidden = false;
-  }
+  function render() {
+    document.documentElement.lang = lang;
+    document.title = ui("meta_title");
+    var md = document.querySelector('meta[name="description"]');
+    if (md) md.setAttribute("content", ui("meta_desc"));
 
-  // Proyectos web
-  var cont = document.getElementById("proyectos");
-  (C.proyectos || []).forEach(function (p) {
-    var wrap = el("article", "project");
-    wrap.appendChild(tile({ src: p.imagen, titulo: "Captura de " + p.nombre }));
-    var txt = el("div", "project-text");
-    var estado = p.estado === "online" ? "Proyecto web" : "Proyecto web · en desarrollo";
-    txt.appendChild(el("p", "eyebrow", p.numero + " — " + estado));
-    txt.appendChild(el("h3", "", p.nombre));
-    txt.appendChild(el("p", "resumen", p.resumen));
-    txt.appendChild(el("p", "detalle", p.detalle));
-    var url = safeUrl(p.url);
-    if (p.estado === "online" && url) {
-      var link = el("a", "link-line", "Ver sitio · " + url.replace(/^https?:\/\//, "").replace(/\/$/, ""));
-      link.href = url;
-      link.target = "_blank";
-      link.rel = "noopener";
-      txt.appendChild(link);
-    } else {
-      txt.appendChild(el("span", "soon", "Próximamente"));
+    // Textos fijos
+    var nodes = document.querySelectorAll("[data-i18n]");
+    for (var i = 0; i < nodes.length; i++) {
+      nodes[i].textContent = ui(nodes[i].getAttribute("data-i18n"));
     }
-    wrap.appendChild(txt);
-    cont.appendChild(wrap);
-  });
 
-  // Arte
-  var arte = C.arte || {};
-  document.getElementById("arte-nombre").textContent = arte.nombre || "";
-  document.getElementById("arte-etiqueta").textContent = arte.etiqueta || "";
-  document.getElementById("arte-desc").textContent = arte.descripcion || "";
-  var obras = document.getElementById("obras");
-  (arte.obras || []).forEach(function (o) { obras.appendChild(tile(o)); });
+    // Botones de idioma
+    var buttons = document.querySelectorAll(".lang button");
+    for (var b = 0; b < buttons.length; b++) {
+      buttons[b].setAttribute("aria-pressed", buttons[b].getAttribute("data-lang") === lang ? "true" : "false");
+    }
+    var group = document.querySelector(".lang");
+    if (group) group.setAttribute("aria-label", ui("lang_label") + " / " + (lang === "es" ? "Language" : "Idioma"));
 
-  // Contacto
-  var email = document.getElementById("email");
-  if (s.email) {
-    var m = el("a", "", s.email);
-    m.href = "mailto:" + s.email;
-    email.appendChild(m);
-    email.hidden = false;
+    // Nombre en dos líneas
+    var nombre = document.getElementById("nombre");
+    clear(nombre);
+    (s.nombre || "").split(" ").forEach(function (p, idx) {
+      if (idx > 0) nombre.appendChild(document.createElement("br"));
+      nombre.appendChild(document.createTextNode(p));
+    });
+    document.getElementById("anio").textContent = new Date().getFullYear();
+
+    // Fotografía
+    var fotos = document.getElementById("fotos");
+    clear(fotos);
+    (C.fotos || []).forEach(function (f) { fotos.appendChild(tile(f)); });
+    var fl = safeUrl(s.portfolioFotosUrl);
+    var a = document.getElementById("fotos-link");
+    if (fl) { a.href = fl; a.hidden = false; }
+    var dom = document.getElementById("fotos-dominio");
+    if (s.portfolioFotosDominio) { dom.textContent = s.portfolioFotosDominio; dom.hidden = false; }
+
+    // Proyectos web
+    var cont = document.getElementById("proyectos");
+    clear(cont);
+    (C.proyectos || []).forEach(function (p) {
+      var wrap = el("article", "project");
+      wrap.appendChild(tile({ src: p.imagen, titulo: ui("captura_de") + " " + p.nombre }));
+      var txt = el("div", "project-text");
+      var estado = p.estado === "online" ? ui("proyecto_online") : ui("proyecto_desarrollo");
+      txt.appendChild(el("p", "eyebrow", p.numero + " — " + estado));
+      txt.appendChild(el("h3", "", p.nombre));
+      txt.appendChild(el("p", "resumen", tr(p.resumen)));
+      txt.appendChild(el("p", "detalle", tr(p.detalle)));
+      var url = safeUrl(p.url);
+      if (p.estado === "online" && url) {
+        var link = el("a", "link-line", ui("ver_sitio") + " · " + url.replace(/^https?:\/\//, "").replace(/\/$/, ""));
+        link.href = url;
+        link.target = "_blank";
+        link.rel = "noopener";
+        txt.appendChild(link);
+      } else {
+        txt.appendChild(el("span", "soon", ui("proximamente")));
+      }
+      wrap.appendChild(txt);
+      cont.appendChild(wrap);
+    });
+
+    // Arte
+    var arte = C.arte || {};
+    document.getElementById("arte-nombre").textContent = arte.nombre || "";
+    document.getElementById("arte-etiqueta").textContent = tr(arte.etiqueta);
+    document.getElementById("arte-desc").textContent = tr(arte.descripcion);
+    var obras = document.getElementById("obras");
+    clear(obras);
+    (arte.obras || []).forEach(function (o) { obras.appendChild(tile(o)); });
+
+    // Contacto
+    var email = document.getElementById("email");
+    clear(email);
+    if (s.email) {
+      var m = el("a", "", s.email);
+      m.href = "mailto:" + s.email;
+      email.appendChild(m);
+      email.hidden = false;
+    }
+    var social = document.getElementById("social");
+    clear(social);
+    [["Instagram", s.instagram], ["LinkedIn", s.linkedin], ["Behance", s.behance]].forEach(function (par) {
+      var u = safeUrl(par[1]);
+      if (!u) return;
+      var l = el("a", "", par[0]);
+      l.href = u;
+      l.target = "_blank";
+      l.rel = "noopener";
+      social.appendChild(l);
+    });
   }
-  var social = document.getElementById("social");
-  [["Instagram", s.instagram], ["LinkedIn", s.linkedin], ["Behance", s.behance]].forEach(function (par) {
-    var u = safeUrl(par[1]);
-    if (!u) return;
-    var l = el("a", "", par[0]);
-    l.href = u;
-    l.target = "_blank";
-    l.rel = "noopener";
-    social.appendChild(l);
-  });
+
+  function initialLang() {
+    var fromUrl = /[?&]lang=(es|en)\b/.exec(window.location.search);
+    if (fromUrl) return fromUrl[1];
+    try {
+      var saved = window.localStorage.getItem("lang");
+      if (LANGS.indexOf(saved) !== -1) return saved;
+    } catch (e) { /* sin almacenamiento: no pasa nada */ }
+    var nav = (navigator.language || "es").toLowerCase();
+    return nav.indexOf("es") === 0 ? "es" : "en";
+  }
+
+  function setLang(next) {
+    if (LANGS.indexOf(next) === -1) return;
+    lang = next;
+    try { window.localStorage.setItem("lang", next); } catch (e) { /* ignorar */ }
+    render();
+  }
+
+  var buttons = document.querySelectorAll(".lang button");
+  for (var i = 0; i < buttons.length; i++) {
+    buttons[i].addEventListener("click", function (e) {
+      setLang(e.currentTarget.getAttribute("data-lang"));
+    });
+  }
+
+  lang = initialLang();
+  render();
 })();
