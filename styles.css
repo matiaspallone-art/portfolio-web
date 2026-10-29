@@ -181,6 +181,7 @@ h1, h2, h3, p { margin: 0; }
 .about-text .section-title { margin-bottom: 32px; }
 .about-text .lead { font-family: var(--font-serif); font-size: 26px; line-height: 1.45; margin-bottom: 24px; }
 .about-text .body { font-size: 14px; line-height: 1.9; letter-spacing: 0.04em; color: var(--text-soft); }
+.about-text .body + .body { margin-top: 18px; }
 
 /* CONTACTO */
 .contact { padding: 120px 48px 56px; background: var(--stone); text-align: center; }
