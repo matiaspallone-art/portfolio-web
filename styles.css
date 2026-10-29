@@ -89,13 +89,16 @@ h1, h2, h3, p { margin: 0; }
 }
 /* Logo: arriba a la izquierda; al bajar viaja a la esquina inferior derecha y se vuelve un botón de chat */
 .nav .brand { display: block; width: 76px; height: 76px; padding: 0; }
-.dock { position: fixed; left: 0; top: 0; z-index: 40; width: 76px; height: 76px; display: flex; align-items: center; justify-content: center; border-radius: 50%; transform-origin: 0 0; will-change: transform; background: rgba(0,0,0,calc(var(--b, 0) * 0.92)); box-shadow: 0 8px 28px rgba(0,0,0,calc(var(--b, 0) * 0.4)); transition: filter .25s ease; }
-.dock img { display: block; width: calc(100% - 14px * var(--b, 0)); height: auto; animation: logo-spin 90s linear infinite; }
+.dock { position: fixed; left: 0; top: 0; z-index: 40; width: 76px; height: 76px; display: flex; align-items: center; justify-content: center; transform-origin: 0 0; will-change: transform; transition: filter .25s ease; }
+.dock img { display: block; width: 100%; height: auto; animation: logo-spin 90s linear infinite; transition: opacity .35s ease; }
+.dock .dock-dark { position: absolute; left: 0; top: 0; opacity: 0; }
+.dock.on-light .dock-dark { opacity: 1; }
+.dock.on-light .dock-light { opacity: 0; }
 @keyframes logo-spin { to { transform: rotate(360deg); } }
 @media (prefers-reduced-motion: reduce) { .dock img { animation: none; } }
-.dock-label { position: absolute; right: calc(100% + 14px); top: 50%; transform: translateY(-50%); white-space: nowrap; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; background: #000; color: #fff; padding: 11px 16px; border-radius: 999px; opacity: 0; pointer-events: none; transition: opacity .25s ease; }
+.dock-label { position: absolute; right: calc(100% + 14px); top: 50%; transform: translateY(-50%); white-space: nowrap; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; background: #000; color: #fff; border: 1px solid rgba(255,255,255,.22); padding: 11px 16px; border-radius: 999px; opacity: 0; pointer-events: none; transition: opacity .25s ease; }
 .dock.is-docked:hover .dock-label, .dock.is-docked:focus-visible .dock-label, .dock.show-label .dock-label { opacity: 1; }
-.dock.is-docked:hover { filter: brightness(1.15); }
+.dock.is-docked:hover { filter: brightness(1.2); }
 .nav .brand:focus-visible { outline: none; }
 .nav .brand:focus-visible .dock { outline: 2px solid #fff; outline-offset: 4px; }
 .nav ul { display: flex; flex-wrap: wrap; align-items: center; gap: 0 36px; list-style: none; margin: 0; padding: 0; font-size: 12px; letter-spacing: 0.24em; text-transform: uppercase; }
