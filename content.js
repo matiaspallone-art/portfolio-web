@@ -25,7 +25,7 @@ window.CONTENT = {
     sobreMiFotoAlt: { es: "Retrato de Matías Pallone", en: "Portrait of Matías Pallone" },
 
     // Contacto: completá lo que quieras mostrar; lo vacío no aparece.
-    email: "",
+    email: "hola@matiaspallone.com",
     instagram: "https://www.instagram.com/matiaspalloneph/",
     linkedin: "",
     behance: ""
