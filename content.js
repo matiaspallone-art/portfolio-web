@@ -72,8 +72,8 @@ window.CONTENT = {
         es: "Información de cada activo del fondo, cálculo de rendimientos e indicadores financieros. Estética sobria e institucional.",
         en: "Information on each of the fund's assets, return calculations and financial indicators. A sober, institutional look."
       },
-      url: "",
-      estado: "desarrollo",
+      url: "https://condor-investment-platform.vercel.app",
+      estado: "online",
       imagen: "img/andean-condor-hq.jpg",
       // fondo y ajuste del recuadro: "contain" muestra la imagen completa sin recortar
       fondo: "#0b1220",
