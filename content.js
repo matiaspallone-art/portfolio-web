@@ -26,6 +26,9 @@ window.CONTENT = {
 
     // Contacto: completá lo que quieras mostrar; lo vacío no aparece.
     email: "hola@matiaspallone.com",
+    // WhatsApp: número completo con código de país, solo números (ej. Argentina celular: 5491112345678).
+    // El logo de las "A" se muestra en la esquina inferior derecha al bajar y, al tocarlo, abre el chat.
+    whatsapp: "+54 9 11 3101-8816",
     instagram: "https://www.instagram.com/matiaspalloneph/",
     linkedin: "",
     behance: ""
@@ -122,7 +125,7 @@ window.CONTENT = {
       nav_fotografia: "Fotografía", nav_web: "Web", nav_arte: "Arte",
       nav_servicios: "Servicios", nav_contacto: "Contacto",
       lang_label: "Idioma",
-      hero_hint_mouse: "Mové el mouse y bajá", hero_hint_touch: "Deslizá hacia abajo", proto_volver: "Volver al sitio",
+      hero_hint_mouse: "Mové el mouse y bajá", hero_hint_touch: "Deslizá hacia abajo", proto_volver: "Volver al sitio", wa_label: "Escribime por WhatsApp", wa_text: "Hola Matías, vi tu portfolio y quería consultarte por ",
             hero_note: "[ Imagen de portada a pantalla completa — tu mejor foto editorial ]",
       subtitulo: "Fotógrafo de moda  I  Director creativo  I  Diseñador web",
       frase: "Imagen, marca y sitio web como un solo lenguaje. Dirección creativa para marcas de ropa y accesorios, desde el moodboard hasta la pantalla.",
@@ -148,7 +151,7 @@ window.CONTENT = {
       nav_fotografia: "Photography", nav_web: "Web", nav_arte: "Art",
       nav_servicios: "Services", nav_contacto: "Contact",
       lang_label: "Language",
-      hero_hint_mouse: "Move your mouse and scroll", hero_hint_touch: "Swipe down", proto_volver: "Back to site",
+      hero_hint_mouse: "Move your mouse and scroll", hero_hint_touch: "Swipe down", proto_volver: "Back to site", wa_label: "Message me on WhatsApp", wa_text: "Hi Matías, I saw your portfolio and wanted to ask about ",
             hero_note: "[ Full-screen cover image — your best editorial photo ]",
       subtitulo: "Fashion Photographer  I  Creative Director  I  Web Designer",
       frase: "Image, brand and website as a single language. Creative direction for clothing and accessories brands, from moodboard to screen.",
