@@ -196,6 +196,8 @@ h1, h2, h3, p { margin: 0; }
 .contact .big { font-weight: 200; font-size: clamp(28px, 4.4vw, 64px); letter-spacing: 0.08em; text-transform: uppercase; margin: 20px 0 56px; }
 .contact .email { font-size: 14px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 16px; }
 .contact .social { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 32px; font-size: 12px; letter-spacing: 0.26em; text-transform: uppercase; color: var(--text-soft); margin-bottom: 72px; }
+.contact .social a { display: inline-block; padding: 14px 34px; border: 1px solid var(--text-soft); color: var(--ink); transition: background .25s ease, color .25s ease, border-color .25s ease; }
+.contact .social a:hover, .contact .social a:focus-visible { background: var(--ink); color: var(--stone); border-color: var(--ink); }
 .contact .copy { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
 
 .contact .legal { max-width: 640px; margin: 20px auto 0; line-height: 1.7; letter-spacing: 0.1em; }

@@ -26,7 +26,7 @@ window.CONTENT = {
 
     // Contacto: completá lo que quieras mostrar; lo vacío no aparece.
     email: "",
-    instagram: "",
+    instagram: "https://www.instagram.com/matiaspalloneph/",
     linkedin: "",
     behance: ""
   },
