@@ -130,8 +130,8 @@ window.CONTENT = {
       s4: "Diseño web · UI / UX", s5: "Dirección creativa",
       s6: "Asesoría en finanzas y gestión comercial", s6_small: "Con 5 años de experiencia dirigiendo una cafetería",
       about_title: "Sobre mí", tile_retrato: "[ Retrato de Matías ]",
-      about_lead: "Fotógrafo hace 8 años, Licenciado en Comercialización, con estudio propio en Buenos Aires.",
-      about_body: "Combino dirección creativa, producción visual, diseño web y gestión comercial. Trabajo con inteligencia artificial, Python y SQL para sumar a mi trabajo creativo y de negocio. Durante 5 años dirigí una cafetería: finanzas, equipo y gestión legal. Esa experiencia respalda mi asesoría a emprendedores.",
+      about_lead: "Fotógrafo y director de arte con estudio propio en Buenos Aires.",
+      about_body: "Combino dirección creativa, producción visual, diseño web y gestión comercial. Trabajo con inteligencia artificial, Python y SQL para sumar a mi trabajo creativo y de negocio. Universidad de Palermo.",
       contact_eyebrow: "Contacto", contact_big: "Trabajemos juntos",
       legal: "Todas las imágenes, textos y diseños de este sitio son obra de Matías Pallone. Todos los derechos reservados. Prohibida su reproducción, copia o uso sin autorización escrita."
     },
@@ -154,8 +154,8 @@ window.CONTENT = {
       s4: "Web design · UI / UX", s5: "Creative direction",
       s6: "Finance and business management advisory", s6_small: "5 years of experience running a café",
       about_title: "About me", tile_retrato: "[ Portrait of Matías ]",
-      about_lead: "Photographer for 8 years, graduate in Marketing, with my own studio in Buenos Aires.",
-      about_body: "I combine creative direction, visual production, web design and business management. I work with artificial intelligence, Python and SQL to add to my creative and business work. For 5 years I ran a café: finances, team and legal management. That experience backs my advice to entrepreneurs.",
+      about_lead: "Photographer and art director with my own studio in Buenos Aires.",
+      about_body: "I combine creative direction, visual production, web design and business management. I work with artificial intelligence, Python and SQL to add to my creative and business work. Universidad de Palermo.",
       contact_eyebrow: "Contact", contact_big: "Let's work together",
       legal: "All images, texts and designs on this site are the work of Matías Pallone. All rights reserved. Reproduction, copying or use without written permission is prohibited."
     }
