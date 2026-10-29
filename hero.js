@@ -12,10 +12,13 @@
   var fallback = document.getElementById("hero-fallback");
   if (!hero || !canvas) return;
 
+  /* Celulares y pantallas chicas usan una versión más liviana (menos memoria de video) */
+  var LOW = (window.matchMedia && window.matchMedia("(pointer: coarse)").matches) || window.innerWidth < 820;
+  var N_FOTOS = 45;
   var FOTOS = [];
-  for (var i = 0; i < 35; i++) FOTOS.push("img/hero/c" + (i < 10 ? "0" : "") + i + ".webp");
-  var TEX_W = 576, TEX_H = 768;
-  var COLS = 7, ROWS = 5;   // 7 x 5 = 35 lugares: una foto distinta en cada uno, ninguna se repite
+  for (var i = 0; i < N_FOTOS; i++) FOTOS.push("img/hero/" + (LOW ? "s/" : "") + "c" + (i < 10 ? "0" : "") + i + ".webp");
+  var TEX_W = LOW ? 512 : 768, TEX_H = LOW ? 683 : 1024;
+  var COLS = 9, ROWS = 5;   // 9 x 5 = 45 lugares: una foto distinta en cada uno, ninguna se repite
 
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (reduce) hero.classList.add("hero-static");
@@ -27,7 +30,7 @@
     if (!fallback || fallback.firstChild) return;
     var wall = document.createElement("div");
     wall.className = "hero-wall";
-    for (var k = 0; k < 35; k++) {
+    for (var k = 0; k < 42; k++) {
       var im = document.createElement("img");
       im.src = FOTOS[k];
       im.alt = "";
@@ -43,6 +46,7 @@
     gl = canvas.getContext("webgl2", { antialias: true, alpha: false, powerPreference: "high-performance" });
   } catch (e) { gl = null; }
   if (!gl) { showFallback(); return; }
+  canvas.addEventListener("webglcontextlost", function (e) { e.preventDefault(); running = false; showFallback(); });
 
   /* ---------- Matemática de matrices (column-major) ---------- */
   function mul(a, b) {
@@ -299,7 +303,7 @@
   }
   /* Cámara del anillo: a la derecha en pantallas anchas, arriba y centrado en celulares */
   function vpr() {
-    var asp = W / H, f = fovNow(), D = (6.4 + RING_R * 0.8) * (asp < 1.1 ? 0.95 : 1.22);
+    var asp = W / H, f = fovNow(), D = (6.4 + RING_R * 0.8) * (asp < 1.1 ? 1.5 : 1.22);
     var halfH = Math.tan(f / 2) * D;
     var tx = asp >= 1.1 ? halfH * asp * 0.33 : 0;
     var ty = asp >= 1.1 ? halfH * 0.1 : halfH * 0.28;
