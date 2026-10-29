@@ -16,8 +16,8 @@ window.CONTENT = {
     nombre: "Matías Pallone",
 
     // Portfolio de fotos (ya publicado). Cuando compres el dominio, reemplazá la url.
-    portfolioFotosUrl: "https://portfolio-map-dun.vercel.app",
-    portfolioFotosDominio: "",
+    portfolioFotosUrl: "https://matiaspallone.com.ar",
+    portfolioFotosDominio: "matiaspallone.com.ar",
 
     // Contacto: completá lo que quieras mostrar; lo vacío no aparece.
     email: "",
