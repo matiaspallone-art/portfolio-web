@@ -9,10 +9,13 @@
   var lang = "es";
 
   var SLIDES = [
-    { src: "img/editorial-perlas.webp", fx: 0.5, fy: 0.24 },
-    { src: "img/perfume.webp", fx: 0.5, fy: 0.55 },
+    { src: "img/editorial-perlas.webp", fx: 0.5, fy: 0.27 },
+    { src: "img/llone-patagonia.webp", fx: 0.5, fy: 0.5 },
+    { src: "img/auto-clasico.webp", fx: 0.5, fy: 0.55 },
+    { src: "img/llone-pampa.webp", fx: 0.5, fy: 0.5 },
     { src: "img/retrato-editorial.webp", fx: 0.5, fy: 0.3 },
-    { src: "img/auto-clasico.webp", fx: 0.5, fy: 0.6 }
+    { src: "img/llone-nord.webp", fx: 0.5, fy: 0.5 },
+    { src: "img/perfume.webp", fx: 0.5, fy: 0.5 }
   ];
   var HOLD = 6.5, TRANS = 2.6;
 
@@ -83,25 +86,33 @@
     "uniform sampler2D t0; uniform sampler2D t1;",
     "uniform vec2 res; uniform vec2 ia; uniform vec2 f0; uniform vec2 f1;",
     "uniform vec2 mouse; uniform float vel; uniform float mixv; uniform float time;",
-    "uniform float lightK; uniform float radius; uniform float amb;",
+    "uniform float lightK; uniform float radius; uniform float amb; uniform float hov;",
     "float hash(vec2 p){ p = fract(p*vec2(123.34, 456.21)); p += dot(p, p+45.32); return fract(p.x*p.y); }",
     "float noise(vec2 p){ vec2 i=floor(p), f=fract(p); f=f*f*(3.0-2.0*f);",
     "  return mix(mix(hash(i),hash(i+vec2(1.,0.)),f.x), mix(hash(i+vec2(0.,1.)),hash(i+vec2(1.,1.)),f.x), f.y); }",
     "float fbm(vec2 p){ float v=0.0, a=0.5; for(int i=0;i<4;i++){ v+=a*noise(p); p*=2.03; a*=0.5; } return v; }",
-    "vec3 cover(vec2 p, float iaspect, vec2 f){",
+    "vec3 coverUV(vec2 p, float iaspect, vec2 f){",
     "  float sa = res.x/res.y;",
-    "  if (sa > iaspect*1.3){",
-    "    float w = iaspect/sa; float cx = clamp(0.68, w*0.5, 1.0-w*0.5);",
-    "    float u = (p.x - (cx - w*0.5))/w;",
-    "    float m = smoothstep(0.0, 0.16, u) * (1.0 - smoothstep(0.84, 1.0, u));",
-    "    return vec3(clamp(u,0.0,1.0), p.y, m);",
-    "  }",
     "  if (sa > iaspect){ float vh = iaspect/sa; float y0 = clamp(f.y - vh*0.5, 0.0, 1.0-vh); return vec3(p.x, y0 + p.y*vh, 1.0); }",
     "  float vw = sa/iaspect; float x0 = clamp(f.x - vw*0.5, 0.0, 1.0-vw); return vec3(x0 + p.x*vw, p.y, 1.0);",
     "}",
+    "vec3 tapT(sampler2D tx, vec2 p, float ia, vec2 f){",
+    "  float sa = res.x/res.y;",
+    "  if (sa > ia*1.6){",
+    "    float w = ia/sa; float cx = 0.66;",
+    "    float u = (p.x - (cx - w*0.5))/w;",
+    "    float m = smoothstep(0.0, 0.10, u) * (1.0 - smoothstep(0.90, 1.0, u));",
+    "    vec3 fg = texture2D(tx, vec2(clamp(u,0.0,1.0), p.y)).rgb;",
+    "    vec3 cc = coverUV(p, ia, f);",
+    "    vec3 bg = (texture2D(tx, cc.xy + vec2(0.04,0.0)).rgb + texture2D(tx, cc.xy - vec2(0.04,0.0)).rgb + texture2D(tx, cc.xy + vec2(0.0,0.05)).rgb + texture2D(tx, cc.xy - vec2(0.0,0.05)).rgb) * 0.25 * 0.5;",
+    "    return mix(bg, fg, m);",
+    "  }",
+    "  vec3 c = coverUV(p, ia, f);",
+    "  return texture2D(tx, c.xy).rgb;",
+    "}",
     "float jit = 0.0;",
-    "vec3 tap0(vec2 p){ vec3 c = cover(p, ia.x, f0); return texture2D(t0, c.xy).rgb * c.z; }",
-    "vec3 tap1(vec2 p){ vec3 c = cover(p, ia.y, f1); return texture2D(t1, c.xy).rgb * c.z; }",
+    "vec3 tap0(vec2 p){ return tapT(t0, p, ia.x, f0); }",
+    "vec3 tap1(vec2 p){ return tapT(t1, p, ia.y, f1); }",
     "vec3 sample0(vec2 p, vec2 dir, float amt){",
     "  if (amt < 0.004) return tap0(p);",
     "  vec3 acc = vec3(0.0);",
@@ -120,10 +131,14 @@
     "  float asp = res.x/res.y;",
     "  vec2 pa = vec2(p.x*asp, p.y);",
     "  float trans = sin(3.14159*clamp(mixv,0.0,1.0));",
+    "  vec2 q = (p - mouse) * vec2(asp, 1.0);",
+    "  float d = length(q);",
+    "  float l = exp(-pow(d/radius, 2.0)*1.7);",
+    "  float near = exp(-pow(d/(radius*1.7), 2.0));",
     "  float n = fbm(pa*3.2 + time*0.04);",
     "  float ang = n*9.4;",
     "  vec2 dir = vec2(cos(ang)/asp, sin(ang));",
-    "  float amt = smoothstep(0.12, 1.4, vel)*0.03 + trans*0.035;",
+    "  float amt = hov*near*(0.010 + smoothstep(0.12, 1.4, vel)*0.045) + trans*0.035;",
     "  vec3 c = sample0(p, dir, amt);",
     "  if (mixv > 0.0005){",
     "    float nz = fbm(pa*2.4 + 7.0);",
@@ -131,13 +146,11 @@
     "    float m = 1.0 - smoothstep(t-0.12, t+0.12, nz);",
     "    c = mix(c, sample1(p, dir, amt), m);",
     "  }",
-    "  vec2 q = (p - mouse) * vec2(asp, 1.0);",
-    "  float d = length(q);",
-    "  float l = exp(-pow(d/radius, 2.0)*1.7);",
-    "  float lit = amb + (1.0-amb)*l*lightK;",
+    "  float base = mix(0.86, amb, hov);",
+    "  float lit = base + (1.0-base)*l*lightK;",
     "  c *= lit;",
-    "  c = mix(c, c*vec3(1.10, 0.98, 0.84), l*0.55*lightK);",
-    "  float vg = 1.0 - 0.55*dot(p-0.5, p-0.5)*2.0;",
+    "  c = mix(c, c*vec3(1.10, 0.98, 0.84), l*0.5*lightK*hov);",
+    "  float vg = 1.0 - 0.45*dot(p-0.5, p-0.5)*2.0;",
     "  c *= clamp(vg, 0.0, 1.0);",
     "  gl_FragColor = vec4(c, 1.0);",
     "}"
@@ -163,7 +176,7 @@
   gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
 
   var U = {};
-  ["t0","t1","res","ia","f0","f1","mouse","vel","mixv","time","lightK","radius","amb"].forEach(function (n) { U[n] = gl.getUniformLocation(prog, n); });
+  ["t0","t1","res","ia","f0","f1","mouse","vel","mixv","time","lightK","radius","amb","hov"].forEach(function (n) { U[n] = gl.getUniformLocation(prog, n); });
   gl.uniform1i(U.t0, 0); gl.uniform1i(U.t1, 1);
 
   /* ---------- Texturas ---------- */
@@ -213,10 +226,14 @@
   var cur = 0, next = 1, mixv = 0, phase = "hold", phaseT = 0;
   var tx = 0.5, ty = 0.5, mx = 0.5, my = 0.5, vel = 0, lastMove = -99, lightK = reduce ? 1 : 0;
   var time = 0, last = 0, running = false, started = false;
-  var amb = 0.11, radius = reduce ? 0.55 : (coarse ? 0.36 : 0.30);
+  var hovT = 0, hov = 0;
+  var amb = 0.12, radius = reduce ? 0.55 : (coarse ? 0.36 : 0.30);
 
   if (!reduce) {
+    hero.addEventListener("pointerenter", function () { hovT = 1; lastMove = time; }, { passive: true });
+    hero.addEventListener("pointerleave", function () { hovT = 0; }, { passive: true });
     hero.addEventListener("pointermove", function (e) {
+      hovT = 1;
       var r = hero.getBoundingClientRect();
       tx = (e.clientX - r.left) / r.width; ty = (e.clientY - r.top) / r.height;
       lastMove = time;
@@ -235,7 +252,7 @@
     gl.uniform2f(U.mouse, mx, my);
     gl.uniform1f(U.vel, vel); gl.uniform1f(U.mixv, t1ok ? mixv : 0);
     gl.uniform1f(U.time, time);
-    gl.uniform1f(U.lightK, lightK); gl.uniform1f(U.radius, radius); gl.uniform1f(U.amb, amb);
+    gl.uniform1f(U.hov, hov); gl.uniform1f(U.lightK, lightK); gl.uniform1f(U.radius, radius); gl.uniform1f(U.amb, amb);
     gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
   }
 
@@ -251,6 +268,7 @@
     var sp = Math.sqrt(Math.pow((mx - px) * W / H, 2) + Math.pow(my - py, 2)) / Math.max(dt, 0.001);
     vel += (Math.min(sp, 2.0) - vel) * (1 - Math.pow(0.02, dt));
     lightK = Math.min(1, lightK + dt * 0.5);
+    hov += (hovT - hov) * (1 - Math.pow(0.04, dt));
     // Cambio de foto
     phaseT += dt;
     if (phase === "hold" && phaseT > HOLD && loaded[next]) { phase = "trans"; phaseT = 0; }
@@ -279,5 +297,5 @@
     new IntersectionObserver(function (es) { if (!started) return; if (es[0].isIntersecting) start(); else stop(); }, { threshold: 0.02 }).observe(hero);
   }
   // Exponer para pruebas
-  window.__portada = { setPointer: function (x, y) { tx = x; ty = y; lastMove = time; }, state: function () { return { cur: cur, mixv: mixv, vel: vel, started: started }; } };
+  window.__portada = { goto: function (i) { cur = i % SLIDES.length; next = (cur + 1) % SLIDES.length; mixv = 0; phase = "hold"; phaseT = 0; }, setPointer: function (x, y) { tx = x; ty = y; lastMove = time; }, state: function () { return { cur: cur, mixv: mixv, vel: vel, started: started }; } };
 })();
