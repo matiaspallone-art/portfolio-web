@@ -90,10 +90,10 @@ window.CONTENT = {
     }
   ],
 
-  // Curaduría de arte digital con IA (nombre provisional).
+  // Curaduría de arte digital con IA (LL-one).
   arte: {
     nombre: "LL-one",
-    etiqueta: { es: "Arte digital con IA · nombre provisional", en: "AI digital art · working name" },
+    etiqueta: { es: "Arte digital con IA", en: "AI digital art" },
     descripcion: {
       es: "Curaduría de arte digital creado con inteligencia artificial.",
       en: "Digital art curation made with artificial intelligence."
