@@ -303,7 +303,7 @@
   }
   /* Cámara del anillo: a la derecha en pantallas anchas, arriba y centrado en celulares */
   function vpr() {
-    var asp = W / H, f = fovNow(), D = (6.4 + RING_R * 0.8) * (asp < 1.1 ? 1.5 : 1.22);
+    var asp = W / H, f = fovNow(), D = (6.4 + RING_R * 0.8) * (asp < 1.1 ? 1.3 : 1.22);
     var halfH = Math.tan(f / 2) * D;
     var tx = asp >= 1.1 ? halfH * asp * 0.33 : 0;
     var ty = asp >= 1.1 ? halfH * 0.1 : halfH * 0.28;
