@@ -175,8 +175,8 @@ h1, h2, h3, p { margin: 0; }
 
 /* SOBRE MI */
 .about { display: flex; flex-wrap: wrap; gap: 56px; align-items: center; }
-.about-photo { flex: 1 1 360px; display: flex; }
-.about .tile { flex: 1 1 360px; min-height: 520px; background: #0e0e0e; }
+.about-photo { flex: 0 0 360px; width: 360px; max-width: 100%; display: flex; }
+.about-photo .tile { flex: 1 1 auto; width: 100%; min-height: 0; aspect-ratio: 4 / 5; background: #0e0e0e; }
 .about-text { flex: 1 1 360px; max-width: 560px; }
 .about-text .section-title { margin-bottom: 32px; }
 .about-text .lead { font-family: var(--font-serif); font-size: 26px; line-height: 1.45; margin-bottom: 24px; }
@@ -218,4 +218,5 @@ img { -webkit-user-drag: none; user-select: none; -webkit-user-select: none; -we
   .photos { grid-template-columns: 1fr; }
   .photos .tile:first-child { grid-column: auto; }
   .project-text h3 { font-size: 34px; }
+  .about-photo { flex: 0 0 auto; width: 220px; }
 }

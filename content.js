@@ -21,7 +21,7 @@ window.CONTENT = {
 
     // Foto de "Sobre mí" (retrato). Para cambiarla, reemplazá el archivo en img/ o cambiá el nombre acá.
     sobreMiFoto: "img/matias-retrato.webp",
-    sobreMiFotoPos: "50% 30%",
+    sobreMiFotoPos: "50% 35%",
     sobreMiFotoAlt: { es: "Retrato de Matías Pallone", en: "Portrait of Matías Pallone" },
 
     // Contacto: completá lo que quieras mostrar; lo vacío no aparece.
