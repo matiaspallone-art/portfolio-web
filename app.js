@@ -180,6 +180,17 @@
     (arte.obras || []).forEach(function (o) { if (safeAsset(o.src)) obras.appendChild(tile(o)); });
     obras.hidden = !obras.firstChild;
 
+    // Foto de "Sobre mí"
+    var af = document.getElementById("about-foto");
+    if (af) {
+      clear(af);
+      af.appendChild(tile({
+        src: s.sobreMiFoto, pos: s.sobreMiFotoPos,
+        descripcionVisual: s.sobreMiFotoAlt,
+        titulo: ui("tile_retrato")
+      }, ui("tile_retrato")));
+    }
+
     // Contacto
     var email = document.getElementById("email");
     clear(email);

@@ -19,6 +19,11 @@ window.CONTENT = {
     portfolioFotosUrl: "https://matiaspallone.com.ar",
     portfolioFotosDominio: "matiaspallone.com.ar",
 
+    // Foto de "Sobre mí" (retrato). Para cambiarla, reemplazá el archivo en img/ o cambiá el nombre acá.
+    sobreMiFoto: "img/matias-retrato.webp",
+    sobreMiFotoPos: "50% 30%",
+    sobreMiFotoAlt: { es: "Retrato de Matías Pallone", en: "Portrait of Matías Pallone" },
+
     // Contacto: completá lo que quieras mostrar; lo vacío no aparece.
     email: "",
     instagram: "",
