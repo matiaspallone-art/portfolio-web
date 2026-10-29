@@ -36,12 +36,15 @@
 </header>
 
 <main>
-  <section class="hero" id="inicio">
-    <div class="hero-note" data-i18n="hero_note"></div>
+  <section class="hero hero-live" id="inicio">
+    <canvas id="hero-canvas" class="hero-canvas" aria-hidden="true"></canvas>
+    <div id="hero-fallback" class="hero-fallback" aria-hidden="true" hidden></div>
+    <div class="hero-scrim" aria-hidden="true"></div>
     <div class="hero-content">
       <h1 id="nombre"></h1>
       <p class="sub" data-i18n="subtitulo"></p>
     </div>
+    <p class="hero-hint" id="hero-hint"></p>
   </section>
 
   <section class="intro"><p data-i18n="frase"></p></section>
@@ -110,5 +113,6 @@
 
 <script src="content.js"></script>
 <script src="app.js"></script>
+<script src="hero.js"></script>
 </body>
 </html>

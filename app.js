@@ -94,6 +94,13 @@
       nodes[i].textContent = ui(nodes[i].getAttribute("data-i18n"));
     }
 
+    // Pista de la portada (mouse o táctil)
+    var hint = document.getElementById("hero-hint");
+    if (hint) {
+      var coarse = window.matchMedia && window.matchMedia("(pointer: coarse)").matches;
+      hint.textContent = ui(coarse ? "hero_hint_touch" : "hero_hint_mouse");
+    }
+
     // Botones de idioma
     var buttons = document.querySelectorAll(".lang button");
     for (var b = 0; b < buttons.length; b++) {
