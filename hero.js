@@ -13,9 +13,9 @@
   if (!hero || !canvas) return;
 
   var FOTOS = [];
-  for (var i = 1; i <= 10; i++) FOTOS.push("img/hero/h" + (i < 10 ? "0" : "") + i + ".webp");
-  var TEX_W = 768, TEX_H = 1024;
-  var COLS = 20, ROWS = 14;
+  for (var i = 0; i < 35; i++) FOTOS.push("img/hero/c" + (i < 10 ? "0" : "") + i + ".webp");
+  var TEX_W = 576, TEX_H = 768;
+  var COLS = 7, ROWS = 5;   // 7 x 5 = 35 lugares: una foto distinta en cada uno, ninguna se repite
 
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (reduce) hero.classList.add("hero-static");
@@ -27,9 +27,9 @@
     if (!fallback || fallback.firstChild) return;
     var wall = document.createElement("div");
     wall.className = "hero-wall";
-    for (var k = 0; k < 28; k++) {
+    for (var k = 0; k < 35; k++) {
       var im = document.createElement("img");
-      im.src = FOTOS[(k * 7 + Math.floor(k / 7) * 3) % FOTOS.length];
+      im.src = FOTOS[k];
       im.alt = "";
       im.loading = "lazy";
       wall.appendChild(im);
@@ -76,18 +76,18 @@
   "uniform float uDrift, uIntro, uMorph, uAspect, uHover, uRot, uRingN, uRingR;\n" +
   "uniform vec2 uMouse, uCells;\n" +
   "out vec2 vUV; flat out float vLayer; out float vFade; out float vS; out float vLift; out float vFog;\n" +
-  "const vec2 PITCH = vec2(0.66, 0.88);\n" +
-  "const vec2 CARD = vec2(0.57, 0.76);\n" +
+  "const vec2 PITCH = vec2(0.66, 0.88)*1.28;\n" +
+  "const vec2 CARD = vec2(0.57, 0.76)*1.28;\n" +
   "const float PI = 3.14159265;\n" +
   "mat3 rx(float a){float c=cos(a),s=sin(a);return mat3(1.,0.,0., 0.,c,s, 0.,-s,c);}\n" +
   "mat3 ry(float a){float c=cos(a),s=sin(a);return mat3(c,0.,-s, 0.,1.,0., s,0.,c);}\n" +
   "mat3 rz(float a){float c=cos(a),s=sin(a);return mat3(c,s,0., -s,c,0., 0.,0.,1.);}\n" +
   "void main(){\n" +
   "  float N = uCells.x;\n" +
-  "  float col = mod(aCell.x + uDrift + N*.5, N) - N*.5;\n" +
+  "  float col = aCell.x - N*.5 + .5 + uDrift;\n" +
   "  float row = aCell.y - uCells.y*.5 + .5;\n" +
   "  vec3 c = vec3(col*PITCH.x, row*PITCH.y, 0.);\n" +
-  "  float fade = 1. - smoothstep(.70, .98, abs(col)/(N*.5));\n" +
+  "  float fade = 1.;\n" +
   /* llegada inicial */
   "  float delay = aRand.w*.8 + (col + N*.5)*.018;\n" +
   "  float ti = clamp((uIntro - delay)/1.7, 0., 1.);\n" +
@@ -114,7 +114,7 @@
   "  float yaw = th + (1. - e)*(aRand.y - .5)*9.;\n" +
   "  float rr = inRing ? uRingR : 0.;\n" +
   "  vec3 cr = vec3(sin(th)*rr, 0., cos(th)*rr);\n" +
-  "  float rs = inRing ? .75 : 0.;\n" +
+  "  float rs = inRing ? .48 : 0.;\n" +
   "  vec3 vR = ry(yaw)*rz((1. - e)*(aRand.z - .5)*4.)*vec3(aQuad*CARD*rs, 0.);\n" +
   "  vec4 pR = uVPR*vec4(cr + vR, 1.);\n" +
   /* vuelo: mezcla de las dos posiciones, con un pequeño arco */
@@ -201,10 +201,6 @@
     for (var ry = 0; ry < ROWS; ry++, idx++) {
       cells[idx * 2] = cx; cells[idx * 2 + 1] = ry;
       for (var q = 0; q < 4; q++) rnd[idx * 4 + q] = hash(idx * 4 + q + 1);
-      var L = Math.floor(hash(cx * 31 + ry * 17 + 5) * FOTOS.length);
-      var guard = 0;
-      while (guard++ < 12 && ((ry > 0 && L === lay[idx - 1]) || (cx > 0 && L === lay[idx - ROWS]) || (cx > 0 && ry > 0 && L === lay[idx - ROWS - 1]))) L = (L + 1) % FOTOS.length;
-      lay[idx] = L;
     }
   }
   function inst(loc, data, size) {
@@ -213,22 +209,20 @@
     gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, size, gl.FLOAT, false, 0, 0);
     gl.vertexAttribDivisor(loc, 1);
   }
-  /* Anillo: una carta por foto distinta (la más cercana al centro del muro), repartidas en orden mezclado */
-  var RING_N = Math.max(18, Math.min(FOTOS.length, 24));
-  var ring = new Float32Array(COUNT).fill(-1);
-  var perm = [];
-  for (var pi = 0; pi < RING_N; pi++) perm.push(pi);
-  perm.sort(function (a, b) { return hash(a * 9.7 + 1) - hash(b * 9.7 + 1); });
-  for (var k = 0; k < RING_N; k++) {
-    var Ly = k % FOTOS.length, best = -1, bd = 1e9;
-    for (var ii = 0; ii < COUNT; ii++) {
-      if (lay[ii] !== Ly || ring[ii] >= 0) continue;
-      var dd = Math.pow(cells[ii * 2] - COLS / 2, 2) + Math.pow((cells[ii * 2 + 1] - ROWS / 2) * 1.4, 2);
-      if (dd < bd) { bd = dd; best = ii; }
+  /* Cada lugar del muro tiene una foto distinta (mezcladas), y cada foto tiene su lugar en el anillo */
+  function shuffled(n, seed) {
+    var arr = [];
+    for (var z = 0; z < n; z++) arr.push(z);
+    for (var m = n - 1; m > 0; m--) {
+      var j = Math.floor(hash(m * 3.7 + seed) * (m + 1)), t = arr[m]; arr[m] = arr[j]; arr[j] = t;
     }
-    if (best >= 0) ring[best] = perm[k];
+    return arr;
   }
-  var RING_R = RING_N * 0.5 / (2 * Math.PI);
+  var wallPerm = shuffled(COUNT, 11), ringPerm = shuffled(COUNT, 47);
+  var RING_N = COUNT;
+  var ring = new Float32Array(COUNT);
+  for (var u = 0; u < COUNT; u++) { lay[u] = wallPerm[u] % FOTOS.length; ring[u] = ringPerm[u]; }
+  var RING_R = RING_N * 0.4 / (2 * Math.PI);
   inst(1, cells, 2); inst(2, rnd, 4); inst(3, lay, 1); inst(4, ring, 1);
 
   /* ---------- Texturas (una capa por foto) ---------- */
@@ -265,7 +259,7 @@
 
   /* ---------- Estado ---------- */
   var W = 0, H = 0, dpr = 1;
-  var introT = 0, drift = 0, morph = 0, rot = 0, progP = 0, hover = 0, hoverT = 0;
+  var clock = 0, introT = 0, drift = 0, morph = 0, rot = 0, progP = 0, hover = 0, hoverT = 0;
   var mx = 0, my = 0, tx = 0, ty = 0;       // puntero (-1..1)
   var px = 0, py = 0;                       // parallax suavizado
   var running = false, visible = true, last = 0;
@@ -298,16 +292,16 @@
     var asp = W / H;
     var tilt = 0.98 + py * 0.05, rz = -0.5 + px * 0.07;
     var m = persp(fovNow(), asp, 0.1, 60);
-    m = mul(m, trans(0, -0.2, asp < 1 ? -4.3 : -5.6));
+    m = mul(m, trans(0, 0.1, asp < 1 ? -4.3 : -5.2));
     m = mul(m, rotX(-tilt));
     m = mul(m, rotZ(rz));
     return m;
   }
   /* Cámara del anillo: a la derecha en pantallas anchas, arriba y centrado en celulares */
   function vpr() {
-    var asp = W / H, f = fovNow(), D = (6.4 + RING_R * 0.8) * (asp < 1.1 ? 0.72 : 1);
+    var asp = W / H, f = fovNow(), D = (6.4 + RING_R * 0.8) * (asp < 1.1 ? 0.95 : 1.22);
     var halfH = Math.tan(f / 2) * D;
-    var tx = asp >= 1.1 ? halfH * asp * 0.42 : 0;
+    var tx = asp >= 1.1 ? halfH * asp * 0.33 : 0;
     var ty = asp >= 1.1 ? halfH * 0.1 : halfH * 0.28;
     var m = persp(f, asp, 0.1, 60);
     m = mul(m, trans(tx, ty, -D));
@@ -348,7 +342,8 @@
     var dt = Math.min(0.05, (t - last) / 1000 || 0.016); last = t;
     if (!reduce) {
       introT += dt;
-      drift += dt * 0.16;
+      clock += dt;
+      drift = Math.sin(clock * 0.21) * 0.42;
       var r = hero.getBoundingClientRect();
       var span = Math.max(1, r.height - window.innerHeight);
       var p = Math.min(1, Math.max(0, -r.top / span));
