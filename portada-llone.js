@@ -93,26 +93,33 @@
     "  vec2 pa = vec2(p.x*asp, p.y);",
     "  vec2 q = (p - mouse) * vec2(asp, 1.0);",
     "  float d = length(q);",
-    "  float l = exp(-pow(d/radius, 2.0)*1.6);",
+    "  float l = exp(-pow(d/radius, 2.0)*1.5);",
     "  float near = exp(-pow(d/(radius*1.8), 2.0));",
+    "  vec2 w1 = vec2(0.5 + 0.34*cos(time*0.21 + 1.3), 0.5 + 0.26*sin(time*0.33));",
+    "  vec2 w2 = vec2(0.5 + 0.30*sin(time*0.17 + 4.0), 0.5 + 0.24*cos(time*0.29 + 2.0));",
+    "  float la = exp(-pow(length((p-w1)*vec2(asp,1.0))/(radius*1.5), 2.0)*1.5);",
+    "  float lb = exp(-pow(length((p-w2)*vec2(asp,1.0))/(radius*1.3), 2.0)*1.5);",
     "  float n = fbm(pa*3.0 + time*0.05);",
     "  float ang = n*9.4;",
     "  vec2 dir = vec2(cos(ang)/asp, sin(ang));",
+    "  vec2 wp = p + (vec2(fbm(pa*2.0 + time*0.12), fbm(pa*2.0 + 9.0 - time*0.10)) - 0.5)*0.012;",
     "  float amt = near*(0.008 + smoothstep(0.1, 1.4, vel)*0.05);",
     "  vec3 c;",
-    "  if (amt < 0.003) { c = texture2D(t0, cover(p)).rgb; }",
+    "  if (amt < 0.003) { c = texture2D(t0, cover(wp)).rgb; }",
     "  else {",
     "    float jit = hash(gl_FragCoord.xy + time);",
     "    vec3 acc = vec3(0.0);",
-    "    for (int i=0;i<12;i++){ float k = (float(i)+jit)/12.0 - 0.5; acc += texture2D(t0, cover(p + dir*k*amt)).rgb; }",
+    "    for (int i=0;i<12;i++){ float k = (float(i)+jit)/12.0 - 0.5; acc += texture2D(t0, cover(wp + dir*k*amt)).rgb; }",
     "    c = acc/12.0;",
     "  }",
-    "  float lum = dot(c, vec3(0.299, 0.587, 0.114));",
-    "  c = mix(vec3(lum), c, 0.85);",
-    "  float lit = amb + (cap - amb) * l;",
+    "  c = clamp(c*1.25, 0.0, 1.0);",
+    "  c = mix(c, c*c*(3.0-2.0*c), 0.75);",
+    "  float base = mix(amb, amb*0.55, hov);",
+    "  float lights = clamp(l + 0.45*la + 0.35*lb, 0.0, 1.0);",
+    "  float lit = base + (cap - base) * lights;",
     "  c *= lit;",
-    "  c = mix(c, c*vec3(1.08, 1.0, 0.9), l*0.5);",
-    "  float vg = 1.0 - 0.6*dot(p-0.5, p-0.5)*2.0;",
+    "  c = mix(c, c*vec3(1.08, 1.0, 0.88), clamp(l,0.0,1.0)*0.5);",
+    "  float vg = 1.0 - 0.5*dot(p-0.5, p-0.5)*2.0;",
     "  c *= clamp(vg, 0.0, 1.0);",
     "  gl_FragColor = vec4(c, 1.0);",
     "}"
@@ -160,7 +167,7 @@
 
   var tx = 0.5, ty = 0.5, mx = 0.5, my = 0.5, vel = 0, lastMove = -99;
   var time = 0, last = 0, running = false, started = false;
-  var amb = 0.09, cap = 1.0, radius = coarse ? 0.38 : 0.30, hov = 0, hovT = 0;
+  var amb = 0.26, cap = 1.0, radius = coarse ? 0.40 : 0.32, hov = 0, hovT = 0;
 
   if (!reduce) {
     hero.addEventListener("pointerenter", function () { hovT = 1; lastMove = time; }, { passive: true });
@@ -175,7 +182,7 @@
 
   var video = document.createElement("video");
   video.muted = true; video.defaultMuted = true; video.loop = true; video.playsInline = true;
-  video.setAttribute("playsinline", ""); video.setAttribute("muted", ""); video.preload = "auto";
+  video.setAttribute("playsinline", ""); video.setAttribute("muted", ""); video.preload = "auto"; video.playbackRate = 1.2;
 
   function upload() {
     gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, tex);
