@@ -136,7 +136,7 @@ window.CONTENT = {
       about_title: "Sobre mí", tile_retrato: "[ Retrato de Matías ]",
       about_lead: "Fotógrafo y director de arte con estudio propio en Buenos Aires.",
       about_body: "Combino dirección creativa, producción visual, diseño web y gestión comercial. Trabajo con inteligencia artificial, Python y SQL para sumar a mi trabajo creativo y de negocio. Universidad de Palermo.",
-      about_body2: "Me inspira el arte: la pintura de Caravaggio, Vermeer y Rembrandt, y el impresionismo de Claude Monet. Y la música: el jazz, Coltrane, Thundercat y Tool.",
+      about_body2: "Me inspira el arte: la pintura de Caravaggio, Vermeer y Rembrandt, y el impresionismo de Claude Monet. Y la música, algunos de mis favoritos: el jazz de Coltrane, Thundercat, Tool y Allan Holdsworth.",
       about_body3: "También disfruto trabajar con estadísticas, finanzas y gestión de negocios, un campo en el que trabajé durante muchos años.",
       contact_eyebrow: "Contacto", contact_big: "Trabajemos juntos",
       legal: "Todas las imágenes, textos y diseños de este sitio son obra de Matías Pallone. Todos los derechos reservados. Prohibida su reproducción, copia o uso sin autorización escrita."
@@ -161,7 +161,7 @@ window.CONTENT = {
       about_title: "About me", tile_retrato: "[ Portrait of Matías ]",
       about_lead: "Photographer and art director with my own studio in Buenos Aires.",
       about_body: "I combine creative direction, visual production, web design and business management. I work with artificial intelligence, Python and SQL to add to my creative and business work. Universidad de Palermo.",
-      about_body2: "I'm inspired by art: the paintings of Caravaggio, Vermeer and Rembrandt, and the impressionism of Claude Monet. And by music: jazz, Coltrane, Thundercat and Tool.",
+      about_body2: "I'm inspired by art: the paintings of Caravaggio, Vermeer and Rembrandt, and the impressionism of Claude Monet. And in music, some of my favorites: the jazz of Coltrane, Thundercat, Tool and Allan Holdsworth.",
       about_body3: "I also enjoy working with statistics, finance and business management, a field I worked in for many years.",
       contact_eyebrow: "Contact", contact_big: "Let's work together",
       legal: "All images, texts and designs on this site are the work of Matías Pallone. All rights reserved. Reproduction, copying or use without written permission is prohibited."
