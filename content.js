@@ -35,12 +35,12 @@ window.CONTENT = {
   // Cuando tengas las fotos, ponelas en la carpeta img/ y escribí: src: "img/mi-foto.jpg"
   // "pos" (opcional) decide qué parte de la foto queda visible cuando se recorta: "50% 20%" = centro, un poco arriba.
   fotos: [
-    { src: "img/editorial-01.webp", pos: "50% 30%", titulo: { es: "Editorial de moda — serie 01", en: "Fashion editorial — series 01" } },
-    { src: "img/retrato.webp", pos: "50% 25%", titulo: { es: "Retrato", en: "Portrait" } },
-    { src: "img/accesorios.webp", pos: "50% 50%", titulo: { es: "Accesorios", en: "Accessories" } },
-    { src: "img/editorial-02.webp", pos: "50% 30%", titulo: { es: "Editorial de moda — serie 02", en: "Fashion editorial — series 02" } },
-    { src: "img/producto.webp", pos: "50% 40%", titulo: { es: "Producto", en: "Product" } },
-    { src: "img/editorial-03.webp", pos: "50% 20%", titulo: { es: "Editorial de moda — serie 03", en: "Fashion editorial — series 03" } }
+    { src: "img/auto-clasico.webp", pos: "50% 60%", titulo: { es: "Auto clásico", en: "Classic car" } },
+    { src: "img/editorial-perlas.webp", pos: "50% 22%", titulo: { es: "Editorial de moda — perlas", en: "Fashion editorial — pearls" } },
+    { src: "img/retrato-editorial.webp", pos: "50% 30%", titulo: { es: "Retrato editorial", en: "Editorial portrait" } },
+    { src: "img/vino.webp", pos: "50% 45%", titulo: { es: "Vino — Malbec", en: "Wine — Malbec" } },
+    { src: "img/perfume.webp", pos: "50% 45%", titulo: { es: "Producto — perfume", en: "Product — perfume" } },
+    { src: "img/escalera-bn.webp", pos: "50% 50%", titulo: { es: "Arquitectura en blanco y negro", en: "Black-and-white architecture" } }
   ],
 
   // Proyectos web. Para sumar uno nuevo: copiá un bloque, pegalo y cambiá los textos.
