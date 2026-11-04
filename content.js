@@ -90,6 +90,26 @@ window.CONTENT = {
         es: "Andean Condor: portada, resumen del portfolio y ficha de un activo.",
         en: "Andean Condor: home, portfolio overview and an asset page."
       }
+    },
+    {
+      numero: "03",
+      nombre: "Meridiano",
+      resumen: {
+        es: "Sitio web para un estudio de arquitectura e interiorismo.",
+        en: "Website for an architecture and interior design studio."
+      },
+      detalle: {
+        es: "Web institucional con proyectos, servicios, proceso de trabajo y formulario de contacto. Diseño de interfaz con estética sobria y editorial, y desarrollo con Next.js.",
+        en: "Institutional website with projects, services, work process and a contact form. Interface design with a sober, editorial look, built with Next.js."
+      },
+      url: "https://meridiano.matiaspallone.com.ar",
+      estado: "online",
+      imagen: "img/meridiano-poster-hq.jpg",
+      video: "img/meridiano-demo-hq.mp4",
+      descripcionVisual: {
+        es: "Recorrido animado de Meridiano: portada, proyectos, servicios, proceso de trabajo y contacto.",
+        en: "Animated walkthrough of Meridiano: home, projects, services, work process and contact."
+      }
     }
   ],
 
@@ -101,7 +121,7 @@ window.CONTENT = {
       es: "Curaduría de arte digital creado con inteligencia artificial.",
       en: "Digital art curation made with artificial intelligence."
     },
-    url: "https://ll-one-studio.vercel.app",
+    url: "https://ll-one.matiaspallone.com.ar",
     // Portada animada del sitio (video en bucle, sin sonido). "imagen" se usa mientras carga.
     video: "img/llone-cover.mp4",
     imagen: "img/llone-poster.jpg",
