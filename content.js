@@ -110,6 +110,25 @@ window.CONTENT = {
         es: "Recorrido animado de Meridiano: portada, proyectos, servicios, proceso de trabajo y contacto.",
         en: "Animated walkthrough of Meridiano: home, projects, services, work process and contact."
       }
+    },
+    {
+      numero: "04",
+      nombre: "Retro Arcade",
+      resumen: {
+        es: "Arcade retro con juegos clásicos estilo Family de los 90.",
+        en: "Retro arcade with classic 90s Family-style games."
+      },
+      detalle: {
+        es: "Tetris, tanques estilo Battle City, plataformas y Pong contra la CPU. Ranking de puntajes guardado en la nube y música chiptune generada en el navegador. Desarrollado con HTML, CSS, JavaScript y Supabase.",
+        en: "Tetris, Battle City-style tanks, platformer and Pong against the CPU. High-score ranking saved in the cloud and chiptune music generated in the browser. Built with HTML, CSS, JavaScript and Supabase."
+      },
+      url: "https://arcade.matiaspallone.com",
+      estado: "online",
+      imagen: "img/arcade-poster-hq.jpg",
+      descripcionVisual: {
+        es: "Pantalla de inicio del arcade con los cuatro juegos disponibles.",
+        en: "Arcade home screen with the four available games."
+      }
     }
   ],
 
