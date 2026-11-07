@@ -122,7 +122,7 @@ window.CONTENT = {
         es: "Tetris, tanques estilo Battle City, plataformas y Pong contra la CPU. Ranking de puntajes guardado en la nube y música chiptune generada en el navegador. Desarrollado con HTML, CSS, JavaScript y Supabase.",
         en: "Tetris, Battle City-style tanks, platformer and Pong against the CPU. High-score ranking saved in the cloud and chiptune music generated in the browser. Built with HTML, CSS, JavaScript and Supabase."
       },
-      url: "https://arcade.matiaspallone.com",
+      url: "https://arcade.matiaspallone.com.ar",
       estado: "online",
       imagen: "img/arcade-poster-hq.jpg",
       descripcionVisual: {
